@@ -35,6 +35,9 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device.Portable, Version=1.0.0.0, Culture=neutral, PublicKeyToken=3f6d3f5f65b761a0, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Device.Location.Portable.1.0.0\lib\System.Device.Portable.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,11 +46,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm.cs" />
+    <Compile Include="City.cs" />
+    <Compile Include="ExperimentLogger.cs" />
+    <Compile Include="GeneticAlgorithm.cs" />
+    <Compile Include="GeneticAlgorithmInstance.cs" />
+    <Compile Include="GeneticAlgorithmParameters.cs" />
+    <Compile Include="GreedyAlgorithm.cs" />
+    <Compile Include="Individual.cs" />
+    <Compile Include="GeneticAlgortihmLogger.cs" />
+    <Compile Include="LinqExtension.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomAlgorithm.cs" />
+    <Compile Include="TSPFileLoader.cs" />
+    <Compile Include="TSPProblem.cs" />
+    <Compile Include="TSPReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
