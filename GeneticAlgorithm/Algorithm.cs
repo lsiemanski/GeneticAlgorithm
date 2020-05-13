@@ -19,7 +19,7 @@ namespace GeneticAlgorithm
             this.Problem = problem;
         }
 
-        public abstract void PerformAlgorithm();
+        public abstract IList<Individual> PerformAlgorithm();
 
         protected void evaluateResults(double[] fitnessArray)
         {

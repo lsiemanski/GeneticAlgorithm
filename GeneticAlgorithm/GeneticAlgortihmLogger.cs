@@ -21,23 +21,36 @@ namespace GeneticAlgorithm
         public void AppendLine(int generation, IList<Individual> population)
         {
             Tuple<double, double, double> results = getBestWorstAndAverageFitness(population);
-            string newLine = string.Format("{0},{1},{2},{3}", generation, (Int32)results.Item1, results.Item2, (Int32)results.Item3);
+            string newLine = string.Format("{0};{1};{2};{3}", 
+                generation, 
+                results.Item1.ToString("0.00"), 
+                results.Item2.ToString("0.00"), 
+                results.Item3.ToString("0.00"));
             csv.AppendLine(newLine);
         }
 
         public void WriteToFile()
         {
-            File.WriteAllText(generateFilename(), csv.ToString());
+            string directoryName = "results";
+
+            if (!Directory.Exists(directoryName))
+            {
+                Directory.CreateDirectory(directoryName);
+            }
+
+            File.WriteAllText(generateFilename(directoryName), csv.ToString());
         }
 
-        private string generateFilename()
+        private string generateFilename(string directory)
         {
-            return string.Format("{0}_{1}_{2}_{3}_{4}_{5}.csv", 
-                DateTime.Now.ToString("yyyyMMddhhmm"), 
-                parameters.PopulationSize, 
-                parameters.Generations, 
-                parameters.CrossoverProb, 
-                parameters.MutationProb, 
+            return string.Format("{0}/{1}_{2}_{3}_{4}_{5}_{6}_{7}.csv",
+                directory,
+                problemName,
+                DateTime.Now.ToString("yyyyMMddhhmmss.fff"),
+                parameters.PopulationSize,
+                parameters.Generations,
+                parameters.CrossoverProb,
+                parameters.MutationProb,
                 parameters.TournamentSize);
         }
 

@@ -12,7 +12,7 @@ namespace GeneticAlgorithm
 
         public RandomAlgorithm(TSPProblem problem) : base(problem) { }
 
-        public override void PerformAlgorithm()
+        public override IList<Individual> PerformAlgorithm()
         {
             IList<Individual> individuals = new List<Individual>(EXECUTIONS);
             for(int i = 0; i < EXECUTIONS; i++)
@@ -23,6 +23,7 @@ namespace GeneticAlgorithm
             }
 
             evaluateResults(individuals.Select(x => x.Fitness).ToArray());
+            return individuals;
         }
     }
 }

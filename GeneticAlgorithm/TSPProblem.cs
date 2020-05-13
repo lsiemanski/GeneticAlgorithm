@@ -14,7 +14,7 @@ namespace GeneticAlgorithm
     {
         public double CountEdgeWeight(City city1, City city2)
         {
-            return Math.Floor(Math.Sqrt(Math.Pow(city1.Coord1 - city2.Coord1, 2) + Math.Pow(city1.Coord2 - city2.Coord2, 2)));
+            return Math.Sqrt(Math.Pow(city1.Coord1 - city2.Coord1, 2) + Math.Pow(city1.Coord2 - city2.Coord2, 2));
         }
     }
 
@@ -24,7 +24,7 @@ namespace GeneticAlgorithm
         {
             var firstGeoCoord = new GeoCoordinate(city1.Coord1, city1.Coord2);
             var secondGeoCoord = new GeoCoordinate(city2.Coord1, city2.Coord2);
-            return Math.Floor(firstGeoCoord.GetDistanceTo(secondGeoCoord)/1000);
+            return firstGeoCoord.GetDistanceTo(secondGeoCoord)/1000;
         }
     }
 
@@ -34,13 +34,15 @@ namespace GeneticAlgorithm
         public IList<City> Cities;
         public ICountingEdge CountingEdgeStrategy;
         public double[,] DistanceMatrix;
+        Random randomGenerator;
 
         public TSPProblem(IList<City> cities, ICountingEdge countingEdge, string problemName)
         {
-            this.Cities = cities;
-            this.CountingEdgeStrategy = countingEdge;
-            this.ProblemName = problemName;
+            Cities = cities;
+            CountingEdgeStrategy = countingEdge;
+            ProblemName = problemName;
             InitDistanceMatrix();
+            randomGenerator = new Random();
         }
 
         public void InitDistanceMatrix()
@@ -57,24 +59,22 @@ namespace GeneticAlgorithm
 
         public Individual GenerateRandomIndividual()
         {
-            Random randomGenerator = new Random();
             return new Individual
             {
-                Order = Cities.OrderBy(x => randomGenerator.Next()).Select(x => Cities.IndexOf(x)).ToList()
+                Order = Cities.OrderBy(x => randomGenerator.Next()).Select(x => Cities.IndexOf(x) + 1).ToList()
             };
         }
 
         public double GetFitness(Individual individual)
         { 
             double fitnessValue = 0.0;
-            int current = individual.Order[0];
 
             for (int i = 0; i < individual.Order.Count - 1; i++)
             {
-                fitnessValue += CountingEdgeStrategy.CountEdgeWeight(Cities[individual.Order[i]], Cities[individual.Order[i + 1]]);
+                fitnessValue += CountingEdgeStrategy.CountEdgeWeight(Cities[individual.Order[i] - 1], Cities[individual.Order[i + 1] - 1]);
             }
 
-            fitnessValue += CountingEdgeStrategy.CountEdgeWeight(Cities[individual.Order[individual.Order.Count - 1]], Cities[individual.Order[0]]);
+            fitnessValue += CountingEdgeStrategy.CountEdgeWeight(Cities[individual.Order[individual.Order.Count - 1] - 1], Cities[individual.Order[0] - 1]);
 
             return fitnessValue;
         }

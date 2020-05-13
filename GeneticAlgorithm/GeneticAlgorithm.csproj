@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Algorithm.cs" />
     <Compile Include="City.cs" />
-    <Compile Include="ExperimentLogger.cs" />
     <Compile Include="GeneticAlgorithm.cs" />
     <Compile Include="GeneticAlgorithmInstance.cs" />
     <Compile Include="GeneticAlgorithmParameters.cs" />

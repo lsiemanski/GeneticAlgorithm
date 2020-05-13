@@ -22,7 +22,6 @@ namespace GeneticAlgorithm
                 bool citiesLoading = false;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    //Console.WriteLine("[{0}]", string.Join(", ", line.Split(new char[0], StringSplitOptions.RemoveEmptyEntries)));
                     if (line.StartsWith(EDGE_WEIGHT_TYPE))
                     {
                         countingEdgeStrategy = selectCountingEdgeStrategy(line.Split(':')[1].Substring(1));

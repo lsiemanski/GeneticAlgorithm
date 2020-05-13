@@ -9,7 +9,7 @@ namespace GeneticAlgorithm
 {
     class GeneticAlgorithm : Algorithm
     {
-        private const int EXECUTIONS = 10;
+        private const int EXECUTIONS = 1;
         public ISelection Selection;
         public ICrossover Crossover;
         public IMutation Mutation;
@@ -17,7 +17,7 @@ namespace GeneticAlgorithm
 
         public GeneticAlgorithm(TSPProblem problem) : base(problem) { }
 
-        public override void PerformAlgorithm()
+        public override IList<Individual> PerformAlgorithm()
         {
             IList<Individual> bestIndividuals = new List<Individual>(EXECUTIONS);
             GeneticAlgorithmInstance geneticAlgorithmInstance = new GeneticAlgorithmInstance(Problem, Selection, Crossover, Mutation);
@@ -29,6 +29,7 @@ namespace GeneticAlgorithm
             }
 
             evaluateResults(bestIndividuals.Select(x => x.Fitness).ToArray());
+            return bestIndividuals;
         }
     }
 }

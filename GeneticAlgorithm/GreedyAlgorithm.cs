@@ -8,24 +8,25 @@ namespace GeneticAlgorithm
     {
         public GreedyAlgorithm(TSPProblem problem) : base(problem) { }
 
-        public override void PerformAlgorithm()
+        public override IList<Individual> PerformAlgorithm()
         {
             IList<Individual> individuals = new List<Individual>();
 
             for (int i = 0; i < Problem.Cities.Count; i++)
             {
-                Individual newIndividual = new Individual { Order = Solve(i) };
+                Individual newIndividual = new Individual { Order = Solve(i).Select(x => x + 1).ToList() };
                 newIndividual.Fitness = Problem.GetFitness(newIndividual);
                 individuals.Add(newIndividual);
                 //Console.WriteLine(newIndividual);
             }
 
             evaluateResults(individuals.Select(x => x.Fitness).ToArray());
+            return individuals;
         }
 
         private IList<int> Solve(int startingCityIndex)
         {
-            IList<int> remainingCitiesIndexes = Enumerable.Range(0, Problem.Cities.Count - 1).ToList();
+            IList<int> remainingCitiesIndexes = Enumerable.Range(0, Problem.Cities.Count).ToList();
             IList<int> path = new List<int>();
            
             int currentCityIndex = startingCityIndex;

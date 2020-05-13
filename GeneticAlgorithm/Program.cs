@@ -25,7 +25,13 @@ namespace GeneticAlgorithm
 
             GeneticAlgorithmParameters parameters = readParameters();
 
-            Algorithm geneticAlgorithm = new GeneticAlgorithm(problem) { Parameters = parameters };
+            Algorithm geneticAlgorithm = new GeneticAlgorithm(problem) 
+            { 
+                Parameters = parameters, 
+                Selection = new TournamentSelection(), 
+                Crossover = new OrderedCrossover(), 
+                Mutation = new InversionMutation() 
+            };
             geneticAlgorithm.PerformAlgorithm();
             printAlgorithmResults(geneticAlgorithm);
         }
@@ -56,10 +62,10 @@ namespace GeneticAlgorithm
 
         private static void printAlgorithmResults(Algorithm algorithm)
         {
-            Console.WriteLine("Best fitness: {0}", algorithm.BestFitness);
-            Console.WriteLine("Worst fitness: {0}", algorithm.WorstFitness);
-            Console.WriteLine("Average fitness: {0}", algorithm.AverageFitness);
-            Console.WriteLine("Standard deviation: {0}", algorithm.StandardDeviation);
+            Console.WriteLine("Best fitness: {0:.##}", algorithm.BestFitness);
+            Console.WriteLine("Worst fitness: {0:.##}", algorithm.WorstFitness);
+            Console.WriteLine("Average fitness: {0:.##}", algorithm.AverageFitness);
+            Console.WriteLine("Standard deviation: {0:.##}", algorithm.StandardDeviation);
         }
     }
 }
